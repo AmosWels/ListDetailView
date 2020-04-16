@@ -4,6 +4,7 @@ import {
     computed,
     decorate
 } from 'mobx';
+import data from './userFixture'
 import axios from 'axios';
 
 class UserStore {
@@ -26,10 +27,13 @@ class UserStore {
     }
     // An example that's a little more complex
     getUsers() {
+        this.setUsers(data);
         //Managing Async tasks like ajax calls with Mobx actions
-        axios.get('http://jsonplaceholder.typicode.com/users').then(response => {
-            this.setUsers(response.data);
-        });
+        // axios.get('http://jsonplaceholder.typicode.com/users').then(response => {
+        //     this.setUsers(response.data);
+        //     console.log(response.data)
+        // });
+
     }
 }
 

@@ -12,7 +12,7 @@ const Profile = ({ onClick, label, selected }) => {
     const classes = selected ? 'bold' : ''; 
     return ( 
         <li onClick={ onClick } className={classes}> 
-            { label } 
+            <a>{ label } </a>
         </li> 
     );
 };

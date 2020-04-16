@@ -7,6 +7,7 @@ import _ from 'lodash';
 // Relative imports
 import Selection from './components/Selection';
 import Profile from './components/Profile';
+import store from './models/UserStore'
 
 const propTypes = {
     store: PropTypes.object
@@ -15,27 +16,32 @@ const propTypes = {
 // Observers can react (ba dum tss) to changes in observables
 const App = observer(
 class App extends Component {
-    componentWillMount() {
-        this.props.store.getUsers();
+	componentWillMount() {
+		console.log("this.props", this.props)
+		store.getUsers();
+		// this.props.store.getUsers();
     }
     renderSelection(){
-	if (_.isEmpty(this.props.store.selectedUser)) return null;
+	if (_.isEmpty(store.selectedUser)) return (<><div className='selection'>Select a specific User</div> <br/></>);
 	return (
 	    <div className='selection'>
-		<Selection user={this.props.store.selectedUser}/>
-		<button onClick={this.props.store.clearSelectedUser}>
+		<Selection user={store.selectedUser}/>
+		{/* <Selection user={this.props.store.selectedUser}/> */}
+		<button onClick={store.clearSelectedUser}>
+		{/* <button onClick={this.props.store.clearSelectedUser}> */}
                     Close Profile
                 </button>
 	    </div>
 	);
     }
     renderProfiles(){
-	return this.props.store.users.map((user) => (
+	return store.users.map((user) => (
+	// return this.props.store.users.map((user) => (
 	    <Profile
-		selected = {user.id === this.props.store.selectedId}
+		selected = {user.id === store.selectedId}
                 key = {user.id}
 		label = {user.name}
-                onClick = { () => {this.props.store.selectUser(user)} }
+                onClick = { () => {store.selectUser(user)} }
 	     />
 	));
     }
